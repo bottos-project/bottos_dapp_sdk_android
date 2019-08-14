@@ -3,7 +3,9 @@
 本文档详细说明 Bottos Android SDK常用接口文档, 使开发者更方便地操作和查询Bottos区块链。
 ## 名称解释
 区块服务：提供查询区块信息接口
+
 钱包服务：提供对账户类操作接口
+
 abi文件参数:  bottos业务结构数据
 ## 集成Sdk
 下载bottos android sdk
