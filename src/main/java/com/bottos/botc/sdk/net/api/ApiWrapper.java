@@ -26,7 +26,7 @@ public class ApiWrapper extends RetrofitClient {
         applySchedulersRestful(getService(Configure.getBaseNetUrl(), ApiService.class).transactionStatus(toRequestBody(transactionStatusRequest))).subscribe(newMySubscriber(requestCallBackImp));
     }
 
-    public void sendTransaction(BlockHeight blockHeight, String send, String method, String privateKey, long[] params, RequestCallBackImp<SendTransactionResponse> requestCallBackImp){
+    public void sendTransaction(BlockHeight blockHeight, String send, String constants,String method, String privateKey, long[] params, RequestCallBackImp<SendTransactionResponse> requestCallBackImp){
         RequestDataSign requestDataSign = new RequestDataSign();
         requestDataSign.setVersion(blockHeight.getHead_block_version());
         requestDataSign.setCursor_num(blockHeight.getHead_block_num());
@@ -34,11 +34,10 @@ public class ApiWrapper extends RetrofitClient {
         requestDataSign.setLifetime(blockHeight.getHead_block_time() + 100);
         requestDataSign.setSender(send);
         requestDataSign.setMethod(method);
-        requestDataSign.setContract(Constants.SEND_TRANSACTION_CONTRACT);
+        requestDataSign.setContract(constants);
         requestDataSign.setSig_alg(1);
         requestDataSign.setParam(CryptTool.getHex16(params));
         requestDataSign.setSignature(SignaturedFetchParamUtils.getSignaturedFetchParam(requestDataSign,params,privateKey, blockHeight.getChain_id()));
-//        RequestDataSign.getSignaturedFetchParam(sendTransactionRequest, params, privateKey, blockHeight.getChain_id());
         applySchedulers(getService(Configure.getBaseNetUrl(),ApiService.class).transactionSend(toRequestBody(requestDataSign))).subscribe( newMySubscriber(requestCallBackImp));
     }
 

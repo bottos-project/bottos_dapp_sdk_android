@@ -1,6 +1,7 @@
 package com.bottos.botc.sdk.wallet;
 
 import com.bottos.botc.sdk.BottosSdkManger;
+import com.bottos.botc.sdk.config.Constants;
 import com.bottos.botc.sdk.config.ContractConstants;
 import com.bottos.botc.sdk.entity.BlockHeight;
 import com.bottos.botc.sdk.entity.MsignAuthorInfo;
@@ -99,7 +100,7 @@ public class WalletServiceImp implements WalletService {
                 long[] from = MsgPack.packStr16(createAccountParamsRequest.getName());
                 long[] to = MsgPack.packStr16(createAccountParamsRequest.getPubkey());
                 long [] param= ArraysUtils.arrayCopylong(arsize, from, to);
-                BottosSdkManger.getInstance().getApiWrapper().sendTransaction(blockHeight,send, ContractConstants.CONTRACT_NEW_ACCOUNT,privateKey,param,requestCallBackImp);
+                BottosSdkManger.getInstance().getApiWrapper().sendTransaction(blockHeight,send,Constants.SEND_TRANSACTION_CONTRACT, ContractConstants.CONTRACT_NEW_ACCOUNT,privateKey,param,requestCallBackImp);
             }
         });
     }
@@ -132,7 +133,7 @@ public class WalletServiceImp implements WalletService {
                 long [] value= MsgPack.packUint256(transferParamsRequest.getValue());;
                 long []memo=MsgPack.packStr16(transferParamsRequest.getMemo());
                 long [] param= ArraysUtils.arrayCopylong(arsize, from, to,value,memo);
-                BottosSdkManger.getInstance().getApiWrapper().sendTransaction(blockHeight,send, ContractConstants.CONTRACT_TRABSFER,privateKey,param,requestCallBackImp);
+                BottosSdkManger.getInstance().getApiWrapper().sendTransaction(blockHeight,send, Constants.SEND_TRANSACTION_CONTRACT,ContractConstants.CONTRACT_TRABSFER,privateKey,param,requestCallBackImp);
             }
         });
     }
@@ -163,7 +164,7 @@ public class WalletServiceImp implements WalletService {
                 long[] amount = MsgPack.packUint256(stakeParamsRequest.getAmount());
                 long[] target = MsgPack.packStr16(stakeParamsRequest.getTarget());
                 long [] param= ArraysUtils.arrayCopylong(arsize, amount, target);
-                BottosSdkManger.getInstance().getApiWrapper().sendTransaction(blockHeight,send, ContractConstants.CONTRACT_STAKE,privateKey,param,requestCallBackImp);
+                BottosSdkManger.getInstance().getApiWrapper().sendTransaction(blockHeight,send,Constants.SEND_TRANSACTION_CONTRACT, ContractConstants.CONTRACT_STAKE,privateKey,param,requestCallBackImp);
             }
 
         });
@@ -194,7 +195,7 @@ public class WalletServiceImp implements WalletService {
                 long[] amount = MsgPack.packUint256(unStakeParamsRequest.getAmount());
                 long[] source = MsgPack.packStr16(unStakeParamsRequest.getSource());
                 long [] param= ArraysUtils.arrayCopylong(arsize, amount, source);
-                BottosSdkManger.getInstance().getApiWrapper().sendTransaction(blockHeight,send, ContractConstants.CONTRACT_UN_STAKE,privateKey,param,requestCallBackImp);
+                BottosSdkManger.getInstance().getApiWrapper().sendTransaction(blockHeight,send,Constants.SEND_TRANSACTION_CONTRACT, ContractConstants.CONTRACT_UN_STAKE,privateKey,param,requestCallBackImp);
             }
 
         });
@@ -225,7 +226,7 @@ public class WalletServiceImp implements WalletService {
                 long[] arsize = MsgPack.packArraySize(1);
                 long[] amount = MsgPack.packUint256(claimParamsRequest.getAmount());
                 long [] param= ArraysUtils.arrayCopylong(arsize, amount);
-                BottosSdkManger.getInstance().getApiWrapper().sendTransaction(blockHeight,send, ContractConstants.CONTRACT_CLAIM,privateKey,param,requestCallBackImp);
+                BottosSdkManger.getInstance().getApiWrapper().sendTransaction(blockHeight,send,Constants.SEND_TRANSACTION_CONTRACT, ContractConstants.CONTRACT_CLAIM,privateKey,param,requestCallBackImp);
             }
         });
     }
@@ -269,7 +270,7 @@ public class WalletServiceImp implements WalletService {
                 long[] account = MsgPack.packStr16(newMsignAccountRequests.getAccount());
                 long[] threshold = MsgPack.packUint32(Long.valueOf(newMsignAccountRequests.getThreshold()));
                 long[] param = ArraysUtils.arrayCopylong(arsize, account, authority, threshold);
-                BottosSdkManger.getInstance().getApiWrapper().sendTransaction(blockHeight,send, ContractConstants.CONTRACT_NEW_MSIGIN_ACCOUNT,privateKey,param,requestCallBackImp);
+                BottosSdkManger.getInstance().getApiWrapper().sendTransaction(blockHeight,send,Constants.SEND_TRANSACTION_CONTRACT, ContractConstants.CONTRACT_NEW_MSIGIN_ACCOUNT,privateKey,param,requestCallBackImp);
             }
         });
     }
