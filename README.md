@@ -9,7 +9,7 @@
 abi文件参数:  bottos业务结构数据
 ## 集成Sdk
 下载bottos android sdk
-在Android Studio的项目工程导入bottos-sdk即可使用
+在Android Studio的项目工程导入bottos_dapp_sdk_android即可使用
 ## 使用方法
 ### 生成SDK实例
 调用BottosSdkManger的接口getInstance来实现，具体调用如下:
