@@ -19,12 +19,6 @@ public class BottosSdkManger {
 
     private BottosSdkManger() {
         mApiWrapper = new ApiWrapper();
-        BottosSdkManger.getInstance().getBlickChainService().getBlockHeight(new RequestCallBackImp<BlockHeight>() {
-            @Override
-            public void onNext(BlockHeight blockHeight) {
-
-            }
-        });
     }
 
     public ApiWrapper getApiWrapper() {
