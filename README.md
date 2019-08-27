@@ -83,7 +83,7 @@ String keystore=walletService.createKeystore(accountName,password,privateKey);
 ```
 String privateKey=walletService.recoverKeystore(pwd,keystore);
 ```
-#### 4、查询交易状态
+#### 4、查询交易状态(交易操作的最终结果都是根据此方法来查询)
 
 ```
 walletService.getTransactionStatus(TransactionStatusRequest transactionStatusRequest,RequestCallBackImp<CommonResponse<TransactionStatusResponse>> requestCallBackImp);
