@@ -10,6 +10,7 @@ abi文件参数:  bottos业务结构数据
 ## 集成Sdk
 1、下载bottos android sdk
 在Android Studio的项目工程导入bottos_dapp_sdk_android即可使用
+
 2、Gradle引入
 ```
 allprojects {
