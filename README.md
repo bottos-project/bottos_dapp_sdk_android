@@ -8,8 +8,26 @@
 
 abi文件参数:  bottos业务结构数据
 ## 集成Sdk
-下载bottos android sdk
+1、下载bottos android sdk
 在Android Studio的项目工程导入bottos_dapp_sdk_android即可使用
+2、Gradle引入
+```
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            url "https://dl.bintray.com/xionglihui99/maven/"
+        }
+    }
+}
+```
+dependencies {
+implementation 'com.bottos.botc.sdk:bottos_dapp_sdk_android:1.0.1'
+}
+
+```
+```
 ## 使用方法
 ### 生成SDK实例
 调用BottosSdkManger的接口getInstance来实现，具体调用如下:
