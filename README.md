@@ -101,7 +101,7 @@ String keystore=walletService.createKeystore(accountName,password,privateKey);
 ```
 String privateKey=walletService.recoverKeystore(pwd,keystore);
 ```
-#### 4、查询交易状态(交易操作的最终结果都是根据此方法来查询)
+#### 4、查询交易状态(交易操作的最终结果都是根据此方法来查询,结果为执行失败或者交易已成功生效才是交易的最终状态，为其余的状态时需要多次查询)
 
 ```
 walletService.getTransactionStatus(TransactionStatusRequest transactionStatusRequest,
