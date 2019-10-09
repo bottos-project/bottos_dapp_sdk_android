@@ -262,6 +262,54 @@ MsignAuthorInfo 参数说明
 | author_account                  | String     | 能够操作多签的帐号     |
 | weight                  | String     | 权重     |
 
+#### 11、查询账户信息
+
+```
+walletService.newMsignAccount(AccountInfoRequest accountInfoRequest, RequestCallBackImp<AccountInfoResponse> requestCallBackImp)
+```
+AccountInfoRequest 参数说明
+
+| 参数                     | 类型       | 说明                                     |
+| ------------------------ | ---------- | ---------------------------------------- |
+| account_name                  | String     | bottos账号     |
+
+AccountInfoResponse参数说明
+
+| 参数              | 类型       | 说明                                 |
+| ----------------- | ---------- | ------------------------------------ |
+|  |  |  |
+| errcode           | uint32     | 错误码，0-相应成功，其他见错误码章节 |
+| msg               | string     | 响应描述                             |
+| result            | jsonObject | 响应结果                             |
+| account_name      | string     | 账号名称                             |
+| pubkey            | string     | 公钥                                 |
+| balance                 | string     | 账号可支配的BTO数量                   |
+| staked_balance          | string     | 质押投票的BTO数量                     |
+| staked_space_balance    | string     | 质押SPACE的BTO数量（交易需消耗SPACE） |
+| staked_time_balance     | string     | 质押TIME的BTO数量（交易需消耗TIME） |
+| unStaking_balance       | string     | 正解质押的BTO数量                     |
+| unStaking_timestamp | uint64     | 解质押的时间（ Unix时间戳 ）         |
+| authority | jsonObject | 授权列表，若该账号非多签账号，不为空 |
+| author_account | string | 授权账号 |
+| weight | uint32 | 权重 |
+| resource | jsonObject | 账号资源情况 |
+| free_available_space   | uint64     | 免费额度内，可使用的SPACE数量         |
+| free_used_space        | uint64     | 免费额度内，已使用的SPACE数量         |
+| stake_available_space  | uint64     | 质押范围内，可使用的SPACE数量         |
+| stake_used_space       | uint64     | 质押范围内，已使用的SPACE数量         |
+| free_available_time    | uint64     | 免费额度内，可使用的TIME数量          |
+| free_used_time         | uint64     | 免费额度内，已使用的TIME数量          |
+| stake_available_time   | uint64     | 质押范围内，可使用的TIME数量          |
+| stake_used_time        | uint64     | 质押范围内，已使用的TIME数量          |
+| unClaimed_block_reward | string     | 出块奖励数                     |
+| unClaimed_vote_reward | string     | 投票奖励数                |
+| deploy_contract_list | string | 该账号部署的合约列表 |
+| vote | jsonObject | 投票信息 |
+| delegate | string | 被投票生产者 |
+| votes | string | 投票数量 |
+
+备注：balance、staked_balance、staked_space_balance、staked_time_balance、unStaking_balance 三者之和为改账户总的Token值 。
+
 ### abi文件数据序列化与签名说明
 下面是abi转账的参数来说明
 ```
