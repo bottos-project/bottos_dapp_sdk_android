@@ -8,6 +8,7 @@ import com.bottos.botc.sdk.entity.MsignAuthorInfo;
 import com.bottos.botc.sdk.exceptions.BotcError;
 import com.bottos.botc.sdk.exceptions.BotcException;
 import com.bottos.botc.sdk.net.api.RequestCallBackImp;
+import com.bottos.botc.sdk.net.request.AccountInfoRequest;
 import com.bottos.botc.sdk.net.request.ClaimParamsRequest;
 import com.bottos.botc.sdk.net.request.CreateAccountParamsRequest;
 import com.bottos.botc.sdk.net.request.NewMsignAccountRequest;
@@ -15,6 +16,7 @@ import com.bottos.botc.sdk.net.request.StakeParamsRequest;
 import com.bottos.botc.sdk.net.request.TransactionStatusRequest;
 import com.bottos.botc.sdk.net.request.TransferParamsRequest;
 import com.bottos.botc.sdk.net.request.UnStakeParamsRequest;
+import com.bottos.botc.sdk.net.response.AccountInfoResponse;
 import com.bottos.botc.sdk.net.response.CommonResponse;
 import com.bottos.botc.sdk.net.response.SendTransactionResponse;
 import com.bottos.botc.sdk.net.response.TransactionStatusResponse;
@@ -105,6 +107,19 @@ public class WalletServiceImp implements WalletService {
         });
     }
 
+
+    /***
+     * Inquiry Account Information
+     * @param accountInfoRequest  AccountInfoRequest
+     * @param requestCallBackImp Callbacks Object
+     */
+    @Override
+    public void getAccountInfo(AccountInfoRequest accountInfoRequest, RequestCallBackImp<AccountInfoResponse> requestCallBackImp) {
+        if (accountInfoRequest==null) {
+            throw new NullPointerException();
+        }
+        BottosSdkManger.getInstance().getApiWrapper().getAccountInfo(accountInfoRequest,requestCallBackImp);
+    }
 
     /***
      *Transfer

@@ -1,5 +1,6 @@
 package com.bottos.botc.sdk.net.api;
 
+import com.bottos.botc.sdk.net.response.AccountInfoResponse;
 import com.bottos.botc.sdk.entity.BlockHeight;
 import com.bottos.botc.sdk.net.response.CommonResponse;
 import com.bottos.botc.sdk.net.response.SendTransactionResponse;
@@ -25,5 +26,7 @@ public interface ApiService {
     @POST("/v1/transaction/status")
     Observable<CommonResponse<TransactionStatusResponse>> transactionStatus(@Body RequestBody requestBody);
 
+    @POST("/v1/account/info")
+    Observable<CommonResponse<AccountInfoResponse>> getAccountInfo(@Body RequestBody requestBody);
 
 }

@@ -1,7 +1,8 @@
 package com.bottos.botc.sdk.net.api;
 
 import com.bottos.botc.sdk.config.Configure;
-import com.bottos.botc.sdk.config.Constants;
+import com.bottos.botc.sdk.net.request.AccountInfoRequest;
+import com.bottos.botc.sdk.net.response.AccountInfoResponse;
 import com.bottos.botc.sdk.entity.BlockHeight;
 import com.bottos.botc.sdk.entity.RequestDataSign;
 import com.bottos.botc.sdk.net.request.TransactionStatusRequest;
@@ -19,14 +20,14 @@ import com.bottos.botc.sdk.utils.crypto.CryptTool;
 public class ApiWrapper extends RetrofitClient {
 
     public void requestBlockHeight(RequestCallBackImp<BlockHeight> requestCallBackImp) {
-       applySchedulers(getService(Configure.getBaseNetUrl(),ApiService.class).requestBlockHeight()).subscribe(newMySubscriber(requestCallBackImp));
+        applySchedulers(getService(Configure.getBaseNetUrl(), ApiService.class).requestBlockHeight()).subscribe(newMySubscriber(requestCallBackImp));
     }
 
-    public void transactionStatus(TransactionStatusRequest transactionStatusRequest,RequestCallBackImp<CommonResponse<TransactionStatusResponse>> requestCallBackImp) {
+    public void transactionStatus(TransactionStatusRequest transactionStatusRequest, RequestCallBackImp<CommonResponse<TransactionStatusResponse>> requestCallBackImp) {
         applySchedulersRestful(getService(Configure.getBaseNetUrl(), ApiService.class).transactionStatus(toRequestBody(transactionStatusRequest))).subscribe(newMySubscriber(requestCallBackImp));
     }
 
-    public void sendTransaction(BlockHeight blockHeight, String send, String constants,String method, String privateKey, long[] params, RequestCallBackImp<SendTransactionResponse> requestCallBackImp){
+    public void sendTransaction(BlockHeight blockHeight, String send, String constants, String method, String privateKey, long[] params, RequestCallBackImp<SendTransactionResponse> requestCallBackImp) {
         RequestDataSign requestDataSign = new RequestDataSign();
         requestDataSign.setVersion(blockHeight.getHead_block_version());
         requestDataSign.setCursor_num(blockHeight.getHead_block_num());
@@ -37,8 +38,12 @@ public class ApiWrapper extends RetrofitClient {
         requestDataSign.setContract(constants);
         requestDataSign.setSig_alg(1);
         requestDataSign.setParam(CryptTool.getHex16(params));
-        requestDataSign.setSignature(SignaturedFetchParamUtils.getSignaturedFetchParam(requestDataSign,params,privateKey, blockHeight.getChain_id()));
-        applySchedulers(getService(Configure.getBaseNetUrl(),ApiService.class).transactionSend(toRequestBody(requestDataSign))).subscribe( newMySubscriber(requestCallBackImp));
+        requestDataSign.setSignature(SignaturedFetchParamUtils.getSignaturedFetchParam(requestDataSign, params, privateKey, blockHeight.getChain_id()));
+        applySchedulers(getService(Configure.getBaseNetUrl(), ApiService.class).transactionSend(toRequestBody(requestDataSign))).subscribe(newMySubscriber(requestCallBackImp));
     }
 
+
+    public void getAccountInfo(AccountInfoRequest accountInfoRequest, RequestCallBackImp<AccountInfoResponse> requestCallBackImp) {
+        applySchedulers(getService(Configure.getBaseNetUrl(), ApiService.class).getAccountInfo(toRequestBody(accountInfoRequest))).subscribe(newMySubscriber(requestCallBackImp));
+    }
 }
