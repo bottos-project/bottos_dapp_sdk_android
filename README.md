@@ -8,8 +8,26 @@
 
 abi文件参数:  bottos业务结构数据
 ## 集成Sdk
-下载bottos android sdk
+1、下载bottos android sdk
 在Android Studio的项目工程导入bottos_dapp_sdk_android即可使用
+
+2、Gradle引入 [ ![Download](https://api.bintray.com/packages/xionglihui99/maven/bottos_dapp_sdk_android/images/download.svg?version=1.0.1) ](https://bintray.com/xionglihui99/maven/bottos_dapp_sdk_android/1.0.1/link)  
+```
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            url "https://dl.bintray.com/xionglihui99/maven/"
+        }
+    }
+}
+```
+```
+dependencies {
+    implementation 'com.bottos.botc.sdk:bottos_dapp_sdk_android:1.0.1'
+}
+```
 ## 使用方法
 ### 生成SDK实例
 调用BottosSdkManger的接口getInstance来实现，具体调用如下:
@@ -83,10 +101,11 @@ String keystore=walletService.createKeystore(accountName,password,privateKey);
 ```
 String privateKey=walletService.recoverKeystore(pwd,keystore);
 ```
-#### 4、查询交易状态(交易操作的最终结果都是根据此方法来查询)
+#### 4、查询交易状态(交易操作的最终结果都是根据此方法来查询,结果为执行失败或者交易已成功生效才是交易的最终状态，其余的状态时需要多次查询)
 
 ```
-walletService.getTransactionStatus(TransactionStatusRequest transactionStatusRequest,RequestCallBackImp<CommonResponse<TransactionStatusResponse>> requestCallBackImp);
+walletService.getTransactionStatus(TransactionStatusRequest transactionStatusRequest,
+RequestCallBackImp<CommonResponse<TransactionStatusResponse>> requestCallBackImp);
 ```
 TransactionStatusRequest参数说明
 
@@ -107,7 +126,8 @@ CommonResponse << TransactionStatusResponse>>响应参数说明
 #### 5、交易操作-创建账号
 
 ```
-walletService.createAccount(CreateAccountParamsRequest createAccountParamsRequest, String send, String privateKey, RequestCallBackImp<SendTransactionResponse> requestCallBackImp);
+walletService.createAccount(CreateAccountParamsRequest createAccountParamsRequest, String send, String privateKey,
+RequestCallBackImp<SendTransactionResponse> requestCallBackImp);
 ```
 send表示发送人、引荐人
 privateKey表示私钥
@@ -143,7 +163,8 @@ TradeInfo字段说明
 #### 6、交易操作-转账
 
 ```
-walletService.transfer(TransferParamsRequest transferParamsRequest, String send, String privateKey, RequestCallBackImp<SendTransactionResponse> requestCallBackImp)
+walletService.transfer(TransferParamsRequest transferParamsRequest, String send, String privateKey,
+RequestCallBackImp<SendTransactionResponse> requestCallBackImp)
 ```
 send表示发送人
 privateKey表示私钥
@@ -162,7 +183,8 @@ TransferParamsRequest 参数说明
 #### 7、交易操作-质押
 
 ```
-walletService.stake(StakeParamsRequest stakeParamsRequest, String send, String privateKey, RequestCallBackImp<SendTransactionResponse> requestCallBackImp)
+walletService.stake(StakeParamsRequest stakeParamsRequest, String send, String privateKey,
+RequestCallBackImp<SendTransactionResponse> requestCallBackImp)
 ```
 send表示发送人
 privateKey表示私钥
@@ -183,7 +205,8 @@ Constants.TIME
 
 #### 8、交易操作-解质押
 ```
-walletService.unStake(UnStakeParamsRequest unStakeParamsRequest, String send, String privateKey, RequestCallBackImp<SendTransactionResponse> requestCallBackImp) 
+walletService.unStake(UnStakeParamsRequest unStakeParamsRequest, String send, String privateKey,
+RequestCallBackImp<SendTransactionResponse> requestCallBackImp) 
 ```
 send表示发送人
 privateKey表示私钥
@@ -204,7 +227,8 @@ Constants.TIME
 
 #### 9、交易操作-解质押之后提现
 ```
-walletService.claim(ClaimParamsRequest claimParamsRequest, String send, String privateKey, RequestCallBackImp<SendTransactionResponse> requestCallBackImp)
+walletService.claim(ClaimParamsRequest claimParamsRequest, String send, String privateKey,
+RequestCallBackImp<SendTransactionResponse> requestCallBackImp)
 ```
 send表示发送人
 privateKey表示私钥
@@ -217,7 +241,8 @@ ClaimParamsRequest 参数说明
 
 #### 10、交易操作-多签
 ```
-walletService.newMsignAccount(NewMsignAccountRequest newMsignAccountRequests, String send, String privateKey, RequestCallBackImp<SendTransactionResponse> requestCallBackImp)
+walletService.newMsignAccount(NewMsignAccountRequest newMsignAccountRequests, String send, String privateKey,
+RequestCallBackImp<SendTransactionResponse> requestCallBackImp)
 ```
 send表示发送人
 privateKey表示私钥
