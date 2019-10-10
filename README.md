@@ -118,10 +118,10 @@ CommonResponse << TransactionStatusResponse>>响应参数说明
 
 | 参数    | 类型       | 说明                                                         |
 | ------- | ---------- | ------------------------------------------------------------ |
-| errcode | uint32     | 错误码，0-相应成功，其他见错误码章节                         |
-| msg     | string     | 响应描述                                                     |
-| result  | jsonObject | 响应结果                                                     |
-| status  | string     | 查询交易状态结果，<br />”pending“：交易已提交，但未处理；<br />”packed“：交易已打包；<br />”not found“：交易执行失败；<br />”committed“：交易已成功生效 |
+| errcode | String     | 错误码，0-相应成功，其他见错误码章节                         |
+| msg     | String     | 响应描述                                                     |
+| result  | Object | 响应结果                                                     |
+| status  | String     | 查询交易状态结果，<br />”pending“：交易已提交，但未处理；<br />”packed“：交易已打包；<br />”not found“：交易执行失败；<br />”committed“：交易已成功生效 |
 
 #### 5、交易操作-创建账号
 
@@ -149,16 +149,16 @@ TradeInfo字段说明
 
 | 参数                     | 类型       | 说明                                     |
 | ------------------------ | ---------- | ---------------------------------------- |
-| version      | uint32     | 链版本号                                   |
-| cursor_num   | uint64     | 最新区块号，调用获取区块头获得             |
-| cursor_label | uint32     | 最新区块标签，调用获取区块头获得           |
-| lifetime     | uint64     | 交易过期时间，调用获取区块头，加一定的延时 |
-| sender       | string     | 发送者                                     |
-| contract     | string     | 合约名称                                   |
-| method       | string     | 合约方法                                   |
-| param        | jsonObject | 业务参数                                   |
-| sig_alg      | uint32     | 签名算法                                   |
-| signature    | string     | 签名值                                     |
+| version      | String     | 链版本号                                   |
+| cursor_num   | String     | 最新区块号，调用获取区块头获得             |
+| cursor_label | String     | 最新区块标签，调用获取区块头获得           |
+| lifetime     | String     | 交易过期时间，调用获取区块头，加一定的延时 |
+| sender       | String     | 发送者                                     |
+| contract     | String     | 合约名称                                   |
+| method       | String     | 合约方法                                   |
+| param        | Object | 业务参数                                   |
+| sig_alg      | String     | 签名算法                                   |
+| signature    | String     | 签名值                                     |
 
 #### 6、交易操作-转账
 
@@ -278,35 +278,35 @@ AccountInfoResponse参数说明
 | 参数              | 类型       | 说明                                 |
 | ----------------- | ---------- | ------------------------------------ |
 |  |  |  |
-| errcode           | uint32     | 错误码，0-相应成功，其他见错误码章节 |
+| errcode           | String     | 错误码，0-相应成功，其他见错误码章节 |
 | msg               | string     | 响应描述                             |
-| result            | jsonObject | 响应结果                             |
-| account_name      | string     | 账号名称                             |
-| pubkey            | string     | 公钥                                 |
-| balance                 | string     | 账号可支配的BTO数量                   |
-| staked_balance          | string     | 质押投票的BTO数量                     |
-| staked_space_balance    | string     | 质押SPACE的BTO数量（交易需消耗SPACE） |
-| staked_time_balance     | string     | 质押TIME的BTO数量（交易需消耗TIME） |
-| unStaking_balance       | string     | 正解质押的BTO数量                     |
-| unStaking_timestamp | uint64     | 解质押的时间（ Unix时间戳 ）         |
-| authority | jsonObject | 授权列表，若该账号非多签账号，不为空 |
-| author_account | string | 授权账号 |
-| weight | uint32 | 权重 |
-| resource | jsonObject | 账号资源情况 |
-| free_available_space   | uint64     | 免费额度内，可使用的SPACE数量         |
-| free_used_space        | uint64     | 免费额度内，已使用的SPACE数量         |
-| stake_available_space  | uint64     | 质押范围内，可使用的SPACE数量         |
-| stake_used_space       | uint64     | 质押范围内，已使用的SPACE数量         |
-| free_available_time    | uint64     | 免费额度内，可使用的TIME数量          |
-| free_used_time         | uint64     | 免费额度内，已使用的TIME数量          |
-| stake_available_time   | uint64     | 质押范围内，可使用的TIME数量          |
-| stake_used_time        | uint64     | 质押范围内，已使用的TIME数量          |
-| unClaimed_block_reward | string     | 出块奖励数                     |
-| unClaimed_vote_reward | string     | 投票奖励数                |
-| deploy_contract_list | string | 该账号部署的合约列表 |
-| vote | jsonObject | 投票信息 |
-| delegate | string | 被投票生产者 |
-| votes | string | 投票数量 |
+| result            | Object | 响应结果                             |
+| account_name      | String     | 账号名称                             |
+| pubkey            | String     | 公钥                                 |
+| balance                 | String     | 账号可支配的BTO数量                   |
+| staked_balance          | String     | 质押投票的BTO数量                     |
+| staked_space_balance    | String     | 质押SPACE的BTO数量（交易需消耗SPACE） |
+| staked_time_balance     | String     | 质押TIME的BTO数量（交易需消耗TIME） |
+| unStaking_balance       | String     | 正解质押的BTO数量                     |
+| unStaking_timestamp | long     | 解质押的时间（ Unix时间戳 ）         |
+| authority | Object | 授权列表，若该账号非多签账号，不为空 |
+| author_account | String | 授权账号 |
+| weight | long | 权重 |
+| resource | Object | 账号资源情况 |
+| free_available_space   | String     | 免费额度内，可使用的SPACE数量         |
+| free_used_space        | String     | 免费额度内，已使用的SPACE数量         |
+| stake_available_space  | String     | 质押范围内，可使用的SPACE数量         |
+| stake_used_space       | String     | 质押范围内，已使用的SPACE数量         |
+| free_available_time    | String     | 免费额度内，可使用的TIME数量          |
+| free_used_time         | String     | 免费额度内，已使用的TIME数量          |
+| stake_available_time   | String     | 质押范围内，可使用的TIME数量          |
+| stake_used_time        | String     | 质押范围内，已使用的TIME数量          |
+| unClaimed_block_reward | String     | 出块奖励数                     |
+| unClaimed_vote_reward | String     | 投票奖励数                |
+| deploy_contract_list | String | 该账号部署的合约列表 |
+| vote | Object | 投票信息 |
+| delegate | String | 被投票生产者 |
+| votes | String | 投票数量 |
 
 备注：balance、staked_balance、staked_space_balance、staked_time_balance、unStaking_balance 三者之和为改账户总的Token值 。
 
