@@ -11,7 +11,7 @@ abi文件参数:  bottos业务结构数据
 1、下载bottos android sdk
 在Android Studio的项目工程导入bottos_dapp_sdk_android即可使用
 
-2、Gradle引入 [ ![Download](https://api.bintray.com/packages/xionglihui999/maven/bottos_dapp_sdk_android/images/download.svg?version=1.0.2) ](https://bintray.com/xionglihui999/maven/bottos_dapp_sdk_android/1.0.2/link)
+2、Gradle引入 [ ![Download](https://api.bintray.com/packages/xionglihui999/maven/bottos_dapp_sdk_android/images/download.svg?version=1.0.4) ](https://bintray.com/xionglihui999/maven/bottos_dapp_sdk_android/1.0.4/link)
 ```
 allprojects {
     repositories {
@@ -25,7 +25,7 @@ allprojects {
 ```
 ```
 dependencies {
-    implementation 'com.bottos.botc.sdk:bottos_dapp_sdk_android:1.0.2'
+    implementation 'com.bottos.botc.sdk:bottos_dapp_sdk_android:1.0.4'
 }
 ```
 ## 使用方法
@@ -51,15 +51,15 @@ BlockHeight响应字段
 | 参数                     | 类型       | 说明                                     |
 | ------------------------ | ---------- | ---------------------------------------- |
 | errcode                  | int     | 错误码，0-相应成功，其他见错误码章节     |
-| msg                      | string     | 响应描述                                 |
+| msg                      |String     | 响应描述                                 |
 | result                   | jsonObject | 响应结果                                 |
 | head_block_num           | long     | 块号                                     |
-| head_block_hash          | string     | 前一块哈希值                             |
+| head_block_hash          | String     | 前一块哈希值                             |
 | head_block_time          | long     | 块生成时间                               |
-| head_block_delegate      | string     | 块生产者                                 |
+| head_block_delegate      | String     | 块生产者                                 |
 | cursor_label             | long     | 块标识                                   |
 | last_consensus_block_num | long     | 不可逆块号                               |
-| chain_id                 | string     | 链ID，同一链的所有节点的Chain_id必须相同 |
+| chain_id                 | String     | 链ID，同一链的所有节点的Chain_id必须相同 |
 | head_block_version       | long     | 链版本号                           |
 
 
@@ -88,7 +88,7 @@ String keystore=walletService.createKeystore(accountName,password,privateKey);
 | 参数                     | 类型       | 说明                                     |
 | ------------------------ | ---------- | ---------------------------------------- |
 | accountName                  | String     | bottos账户     |
-| password                      | string     | keyStore密码                          |
+| password                      | String     | keyStore密码                          |
 | privateKey                   | String | 私钥                                 |
 
 返回数据格式如下：
@@ -101,7 +101,29 @@ String keystore=walletService.createKeystore(accountName,password,privateKey);
 ```
 String privateKey=walletService.recoverKeystore(pwd,keystore);
 ```
-#### 4、查询交易状态(交易操作的最终结果都是根据此方法来查询,结果为执行失败或者交易已成功生效才是交易的最终状态，其余的状态时需要多次查询)
+
+#### 4、生成助记词
+```
+String mnemonicStr=walletService.createMnemonic();
+```
+
+#### 5、验证助记词是否正确(助记词错误会抛出异常)
+```
+walletService.validateMnemonic();
+```
+#### 6、根据助记词生成keystore
+```
+String keystore=walletService.hroughMnemonicsCreateKeystore( account,  mnemonicStr,  pwd) 
+```
+
+| 参数                     | 类型       | 说明                                     |
+| ------------------------ | ---------- | ---------------------------------------- |
+| accountName                  | String     | bottos账户     |
+| mnemonicStr                      | String     | 助记词                          |
+| password                   | String | keyStore密码                                 |
+
+
+#### 7、查询交易状态(交易操作的最终结果都是根据此方法来查询,结果为执行失败或者交易已成功生效才是交易的最终状态，其余的状态时需要多次查询)
 
 ```
 walletService.getTransactionStatus(TransactionStatusRequest transactionStatusRequest,
@@ -123,7 +145,7 @@ CommonResponse << TransactionStatusResponse>>响应参数说明
 | result  | Object | 响应结果                                                     |
 | status  | String     | 查询交易状态结果，<br />”pending“：交易已提交，但未处理；<br />”packed“：交易已打包；<br />”not found“：交易执行失败；<br />”committed“：交易已成功生效 |
 
-#### 5、交易操作-创建账号
+#### 8、交易操作-创建账号
 
 ```
 walletService.createAccount(CreateAccountParamsRequest createAccountParamsRequest, String send, String privateKey,
@@ -160,7 +182,7 @@ TradeInfo字段说明
 | sig_alg      | String     | 签名算法                                   |
 | signature    | String     | 签名值                                     |
 
-#### 6、交易操作-转账
+#### 9、交易操作-转账
 
 ```
 walletService.transfer(TransferParamsRequest transferParamsRequest, String send, String privateKey,
@@ -180,7 +202,7 @@ TransferParamsRequest 参数说明
 
 响应参数同创建账户
 
-#### 7、交易操作-质押
+#### 10、交易操作-质押
 
 ```
 walletService.stake(StakeParamsRequest stakeParamsRequest, String send, String privateKey,
@@ -203,7 +225,7 @@ Constants.TIME
 ```
 响应参数同创建账户
 
-#### 8、交易操作-解质押
+#### 11、交易操作-解质押
 ```
 walletService.unStake(UnStakeParamsRequest unStakeParamsRequest, String send, String privateKey,
 RequestCallBackImp<SendTransactionResponse> requestCallBackImp) 
@@ -225,7 +247,7 @@ Constants.TIME
 ```
 响应参数同创建账户
 
-#### 9、交易操作-解质押之后提现
+#### 12、交易操作-解质押之后提现
 ```
 walletService.claim(ClaimParamsRequest claimParamsRequest, String send, String privateKey,
 RequestCallBackImp<SendTransactionResponse> requestCallBackImp)
@@ -239,7 +261,7 @@ ClaimParamsRequest 参数说明
 | ------------------------ | ---------- | ---------------------------------------- |
 | amount                  | String     | 提现金额     |
 
-#### 10、交易操作-多签
+#### 13、交易操作-多签
 ```
 walletService.newMsignAccount(NewMsignAccountRequest newMsignAccountRequests, String send, String privateKey,
 RequestCallBackImp<SendTransactionResponse> requestCallBackImp)
@@ -262,7 +284,7 @@ MsignAuthorInfo 参数说明
 | author_account                  | String     | 能够操作多签的帐号     |
 | weight                  | String     | 权重     |
 
-#### 11、查询账户信息
+#### 14、查询账户信息
 
 ```
 walletService.newMsignAccount(AccountInfoRequest accountInfoRequest, RequestCallBackImp<AccountInfoResponse> requestCallBackImp)
