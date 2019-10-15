@@ -14,6 +14,11 @@ import com.bottos.botc.sdk.net.response.CommonResponse;
 import com.bottos.botc.sdk.net.response.SendTransactionResponse;
 import com.bottos.botc.sdk.net.response.TransactionStatusResponse;
 
+import io.github.novacrypto.bip39.Validation.InvalidChecksumException;
+import io.github.novacrypto.bip39.Validation.InvalidWordCountException;
+import io.github.novacrypto.bip39.Validation.UnexpectedWhiteSpaceException;
+import io.github.novacrypto.bip39.Validation.WordNotFoundException;
+
 /**
  * Created by xionglh on 2018/9/4
  */
@@ -26,14 +31,19 @@ public interface WalletService {
 
     String recoverKeystore(String pwd, String keystore);
 
+    String createMnemonic();
 
-    void getTransactionStatus(TransactionStatusRequest transactionStatusRequest,RequestCallBackImp<CommonResponse<TransactionStatusResponse>> requestCallBackImp);
+    void validateMnemonic(String mnemonicStr) throws WordNotFoundException, UnexpectedWhiteSpaceException, InvalidChecksumException, InvalidWordCountException, InvalidWordCountException;
 
-    void createAccount(CreateAccountParamsRequest createAccountParamsRequest,String send, String privateKey, final RequestCallBackImp<SendTransactionResponse> requestCallBackImp);
+     String hroughMnemonicsCreateKeystore(String account,String mnemonicStr,String pwd);
 
-    void getAccountInfo(AccountInfoRequest  accountInfoRequest,final RequestCallBackImp<AccountInfoResponse> requestCallBackImp);
+    void getTransactionStatus(TransactionStatusRequest transactionStatusRequest, RequestCallBackImp<CommonResponse<TransactionStatusResponse>> requestCallBackImp);
 
-    void transfer(TransferParamsRequest transferParamsRequest,String send, String privateKey, final RequestCallBackImp<SendTransactionResponse> requestCallBackImp);
+    void createAccount(CreateAccountParamsRequest createAccountParamsRequest, String send, String privateKey, final RequestCallBackImp<SendTransactionResponse> requestCallBackImp);
+
+    void getAccountInfo(AccountInfoRequest accountInfoRequest, final RequestCallBackImp<AccountInfoResponse> requestCallBackImp);
+
+    void transfer(TransferParamsRequest transferParamsRequest, String send, String privateKey, final RequestCallBackImp<SendTransactionResponse> requestCallBackImp);
 
     void stake(StakeParamsRequest stakeParamsRequest, String send, String privateKey, final RequestCallBackImp<SendTransactionResponse> requestCallBackImp);
 
@@ -41,7 +51,7 @@ public interface WalletService {
 
     void claim(ClaimParamsRequest claimParamsRequest, String send, String privateKey, final RequestCallBackImp<SendTransactionResponse> requestCallBackImp);
 
-    void  newMsignAccount(NewMsignAccountRequest newMsignAccountRequest, String send, String privateKey, final RequestCallBackImp<SendTransactionResponse> requestCallBackImp );
+    void newMsignAccount(NewMsignAccountRequest newMsignAccountRequest, String send, String privateKey, final RequestCallBackImp<SendTransactionResponse> requestCallBackImp);
 
 
 }

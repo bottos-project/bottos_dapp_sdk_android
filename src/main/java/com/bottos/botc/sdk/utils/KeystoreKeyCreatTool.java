@@ -32,6 +32,11 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import io.github.novacrypto.bip39.MnemonicGenerator;
+import io.github.novacrypto.bip39.MnemonicValidator;
+import io.github.novacrypto.bip39.Validation.InvalidChecksumException;
+import io.github.novacrypto.bip39.Validation.InvalidWordCountException;
+import io.github.novacrypto.bip39.Validation.UnexpectedWhiteSpaceException;
+import io.github.novacrypto.bip39.Validation.WordNotFoundException;
 import io.github.novacrypto.bip39.Words;
 import io.github.novacrypto.bip39.wordlists.English;
 
@@ -47,33 +52,16 @@ public class KeystoreKeyCreatTool {
     private static final int PUBLIC_KEY_LENGTH_IN_HEX = PUBLIC_KEY_SIZE << 1;
     private static ObjectMapper objectMapper = ObjectMapperFactory.getObjectMapper();
 
-//    private static WalletKeyPair createWalletKeyPair() {
-//        WalletKeyPair walletKeyPair = new WalletKeyPair();
-//        long creationTimeSeconds = System.currentTimeMillis() / 1000;
-//        DeterministicSeed ds = new DeterministicSeed(secureRandom, 128, "", creationTimeSeconds);
-//        ECKeyPair ecKeyPair = getECKeyPair(ds);
-//        BigInteger publicKey = ecKeyPair.getPublicKey();
-//        String publicKeyStr = Numeric.toHexStringWithPrefixZeroPadded(publicKey, PUBLIC_KEY_LENGTH_IN_HEX);
-//        BigInteger privateKey = ecKeyPair.getPrivateKey();
-//        String privateKeyStr = Numeric.toHexStringNoPrefixZeroPadded(privateKey, Keys.PRIVATE_KEY_LENGTH_IN_HEX);
-//
-//        walletKeyPair.setPrivateKey(privateKeyStr);
-//        walletKeyPair.setPublicKey(publicKeyStr);
-//        return walletKeyPair;
-//    }
 
-    public static WalletKeyPair createWalletKeyPair( ) {
+
+    public static WalletKeyPair createWalletKeyPair() {
         return createWalletKeyPair(getMnemonic());
     }
 
-    public static WalletKeyPair createWalletKeyPair( String seend) {
+    public static WalletKeyPair createWalletKeyPair(String seend) {
         WalletKeyPair walletKeyPair = new WalletKeyPair();
         long creationTimeSeconds = System.currentTimeMillis() / 1000;
         DeterministicSeed deterministicSeed = null;
-//        List mnemonicList = Arrays.asList(mnemonic.split(" "));
-//        byte[] seedByte = new SeedCalculator()
-//                .withWordsFromWordList(English.INSTANCE)
-//                .calculateSeed(mnemonicList, "");
         try {
             deterministicSeed = new DeterministicSeed(seend, null, "", creationTimeSeconds);
         } catch (UnreadableWalletException e) {
@@ -92,14 +80,23 @@ public class KeystoreKeyCreatTool {
     }
 
 
-
-    public static String getMnemonic(){
+    public static String getMnemonic() {
         StringBuilder sb = new StringBuilder();
         byte[] entropy = new byte[Words.TWELVE.byteLength()];
         new SecureRandom().nextBytes(entropy);
         new MnemonicGenerator(English.INSTANCE).createMnemonic(entropy, sb::append);
         return sb.toString();
     }
+
+    public static void validateMnemonic(String mnemonicStr)
+            throws WordNotFoundException,
+            UnexpectedWhiteSpaceException,
+            InvalidChecksumException,
+            InvalidWordCountException {
+        MnemonicValidator.ofWordList(English.INSTANCE).validate(mnemonicStr);
+
+    }
+
     private static ECKeyPair getECKeyPair(DeterministicSeed ds) {
         byte[] seedBytes = ds.getSeedBytes();
         if (seedBytes == null)
@@ -166,19 +163,10 @@ public class KeystoreKeyCreatTool {
         return Numeric.toHexStringWithPrefixZeroPadded(Sign.publicKeyFromPrivate(Numeric.toBigIntNoPrefix(privateKey)), PUBLIC_KEY_LENGTH_IN_HEX);
     }
 
-    /***************** 以下代码均为为了web插件做测试而写 ******************/
-    /**
-     * 通用的以太坊基于bip44协议的助记词路径 （imtoken jaxx Metamask myetherwallet）
-     */
+
     public static String ETH_JAXX_TYPE = "m/44'/60'/0'/0/0";
 
-    /**
-     * 创建助记词，并通过助记词创建钱包
-     *
-     * @param walletName
-     * @param pwd
-     * @return
-     */
+
     public static ETHWallet generateMnemonic(String walletName, String pwd) {
         String[] pathArray = ETH_JAXX_TYPE.split("/");
         String passphrase = "";
@@ -188,13 +176,7 @@ public class KeystoreKeyCreatTool {
         return generateWalletByMnemonic(walletName, ds, pathArray, pwd);
     }
 
-    /**
-     * @param walletName 钱包名称
-     * @param ds         助记词加密种子
-     * @param pathArray  助记词标准
-     * @param pwd        密码
-     * @return
-     */
+
     @Nullable
     public static ETHWallet generateWalletByMnemonic(String walletName, org.bitcoinj.wallet.DeterministicSeed ds,
                                                      String[] pathArray, String pwd) {
@@ -267,14 +249,7 @@ public class KeystoreKeyCreatTool {
         return ethWallet;
     }
 
-    /**
-     * 通过导入助记词，导入钱包
-     *
-     * @param walletName 钱包名
-     * @param list 助记词
-     * @param pwd  密码
-     * @return
-     */
+
     public static ETHWallet importMnemonic(String walletName, List<String> list, String pwd) {
         String path = ETH_JAXX_TYPE;
         if (!path.startsWith("m") && !path.startsWith("M")) {
