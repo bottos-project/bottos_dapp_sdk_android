@@ -42,10 +42,10 @@ dependencies {
     api 'com.squareup.retrofit2:retrofit:2.3.0'
     api 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
     api 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation('io.github.novacrypto:BIP39:2019.01.27')
+    api('io.github.novacrypto:BIP39:2019.01.27')
             {
                 exclude group: 'com.madgag.spongycastle'
             }
-    implementation 'org.bitcoinj:bitcoinj-core:0.14.3'
+    api 'org.bitcoinj:bitcoinj-core:0.14.3'
 
 }
