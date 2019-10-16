@@ -11,7 +11,7 @@ abi文件参数:  bottos业务结构数据
 1、下载bottos android sdk
 在Android Studio的项目工程导入bottos_dapp_sdk_android即可使用
 
-2、Gradle引入 [ ![Download](https://api.bintray.com/packages/xionglihui999/maven/bottos_dapp_sdk_android/images/download.svg?version=1.0.4) ](https://bintray.com/xionglihui999/maven/bottos_dapp_sdk_android/1.0.4/link)
+2、Gradle引入 [ ![Download](https://api.bintray.com/packages/xionglihui999/maven/bottos_dapp_sdk_android/images/download.svg?version=1.0.5) ](https://bintray.com/xionglihui999/maven/bottos_dapp_sdk_android/1.0.5/link)
 ```
 allprojects {
     repositories {
