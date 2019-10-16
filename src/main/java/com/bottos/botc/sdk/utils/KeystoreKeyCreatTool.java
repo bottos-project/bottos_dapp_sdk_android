@@ -113,7 +113,7 @@ public class KeystoreKeyCreatTool {
         ECKeyPair ecKeyPair = ECKeyPair.create(Numeric.toBigInt(privateKey));
         WalletFile walletFile;
         try {
-            walletFile = Wallet.create(password, ecKeyPair, 1024, 1);
+            walletFile = Wallet.create(password, ecKeyPair, 2048, 1);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -222,7 +222,7 @@ public class KeystoreKeyCreatTool {
     private static ETHWallet generateWallet(String walletName, String pwd, ECKeyPair ecKeyPair) {
         WalletFile walletFile;
         try {
-            walletFile = Wallet.create(pwd, ecKeyPair, 1024, 1); // WalletUtils. .generateNewWalletFile();
+            walletFile = Wallet.create(pwd, ecKeyPair, 2048, 1); // WalletUtils. .generateNewWalletFile();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
