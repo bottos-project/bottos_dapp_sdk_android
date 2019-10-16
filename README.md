@@ -25,7 +25,7 @@ allprojects {
 ```
 ```
 dependencies {
-    implementation 'com.bottos.botc.sdk:bottos_dapp_sdk_android:1.0.4'
+    implementation 'com.bottos.botc.sdk:bottos_dapp_sdk_android:1.0.5'
 }
 ```
 ## 使用方法
